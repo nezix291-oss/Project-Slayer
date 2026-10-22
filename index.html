@@ -1,1 +1,1126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intranet Formation Staff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg: #0c0a0e;
+  --panel: #151117;
+  --card: #1c171f;
+  --input: #100d12;
+  --border: #33293a;
+  --border-soft: #241d29;
+  --accent: #e0434c;
+  --accent-dim: #7d2a31;
+  --accent-glow: rgba(224, 67, 76, .18);
+  --jade: #2fa37f;
+  --amber: #e8a83e;
+  --text: #f3ece6;
+  --muted: #b0a4a8;
+  --faint: #6f6370;
+  --body: 'Inter', system-ui, sans-serif;
+  --title: 'Shippori Mincho B1', 'Yu Mincho', Georgia, serif;
+  --radius: 10px;
+}
 
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgba(224, 67, 76, .14), transparent 60%),
+    radial-gradient(700px 500px at -10% 110%, rgba(47, 163, 127, .08), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  font: 14px/1.6 var(--body);
+  min-height: 100vh;
+}
+/* motif asanoha discret en fond */
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1; opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104' viewBox='0 0 60 104'%3E%3Cg fill='none' stroke='%23fff' stroke-width='1'%3E%3Cpath d='M30 0v104M0 17.3l60 69.4M60 17.3L0 86.7M0 17.3h0L30 34.6 60 17.3M0 86.7l30-17.3 30 17.3M30 34.6v34.8M0 52l30-17.4L60 52 30 69.4z'/%3E%3C/g%3E%3C/svg%3E");
+}
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+/* bande damier (haori) */
+.hazard {
+  height: 8px;
+  background: repeating-conic-gradient(#1f7a5c 0 25%, #0c0a0e 0 50%) 0 0 / 16px 16px;
+  border-bottom: 1px solid var(--accent-dim);
+}
+
+/* ---- En-tête */
+header { border-bottom: 1px solid var(--border-soft); background: rgba(12, 10, 14, .75); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 20; }
+.topbar { display: flex; align-items: center; gap: 24px; padding: 12px 28px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.sigil {
+  width: 38px; height: 38px; display: grid; place-items: center; border-radius: 8px;
+  background: linear-gradient(145deg, var(--accent), #9e1f2b); color: #fff;
+  font: 800 20px var(--title); box-shadow: 0 0 18px var(--accent-glow);
+}
+.brand b { display: block; font: 800 17px/1.15 var(--title); letter-spacing: .3px; }
+.flag-fr { display: inline-block; width: 18px; height: 12px; margin-left: 3px; vertical-align: 0; border-radius: 2px; background: linear-gradient(90deg, #2b4fd8 33.3%, #fff 0 66.6%, #e0343e 0); }
+.brand small { display: block; color: var(--muted); font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase; }
+.nav { margin-left: auto; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.nav a.link { text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 500; padding: 7px 12px; border-radius: 6px; }
+.nav a.link:hover { color: var(--text); background: var(--card); }
+.nav a.link.active { color: var(--text); background: var(--card); box-shadow: inset 0 -2px 0 var(--accent); }
+.badge { display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 5px; border-radius: 9px; background: var(--accent); color: #fff; font-size: 10.5px; font-weight: 700; line-height: 18px; text-align: center; vertical-align: 1px; }
+.chip { border: 1px solid var(--border); color: var(--muted); font-size: 12px; padding: 5px 11px; border-radius: 999px; text-decoration: none; margin: 0 6px; }
+.chip:hover { border-color: var(--accent-dim); color: var(--text); }
+
+/* ---- Mise en page */
+main { padding: 44px 20px 80px; }
+.wrap { max-width: 940px; margin: 0 auto; }
+.wrap.narrow { max-width: 470px; }
+.panel { background: linear-gradient(180deg, #19141c, var(--panel)); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: 0 20px 50px rgba(0, 0, 0, .35); overflow: hidden; }
+.panel-head { padding: 26px 30px 20px; border-bottom: 1px solid var(--border-soft); position: relative; }
+.panel-head::before { content: ''; position: absolute; left: 0; top: 22px; bottom: 18px; width: 3px; border-radius: 0 3px 3px 0; background: var(--accent); }
+.panel-body { padding: 26px 30px 30px; }
+.eyebrow { color: var(--accent); font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; }
+h1, h2, h3 { font-family: var(--title); font-weight: 800; margin: 4px 0 0; letter-spacing: .2px; }
+h1 { font-size: 27px; line-height: 1.25; }
+h2 { font-size: 20px; }
+h3 { font-size: 17px; }
+.muted { color: var(--muted); }
+.faint { color: var(--faint); }
+.small { font-size: 12px; }
+.section-title { display: flex; align-items: center; gap: 10px; color: var(--accent); font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; margin: 30px 0 12px; }
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border-soft); }
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.grow { flex: 1; }
+.space { height: 16px; }
+hr.sep { border: 0; border-top: 1px solid var(--border-soft); margin: 22px 0; }
+
+/* ---- Formulaires */
+label.field { display: block; margin-bottom: 16px; }
+label.field > span { display: block; color: var(--muted); font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.input, select.input, textarea.input {
+  width: 100%; background: var(--input); border: 1px solid var(--border); border-radius: 7px; padding: 10px 13px; outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+textarea.input { resize: vertical; min-height: 90px; }
+.input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+.hint { display: block; color: var(--faint); font-size: 11.5px; margin-top: 5px; line-height: 1.5; }
+.checks { display: flex; flex-wrap: wrap; gap: 8px; }
+.check { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; cursor: pointer; font-size: 13px; user-select: none; }
+.check:has(input:checked) { border-color: var(--accent); background: var(--accent-glow); }
+.check input { accent-color: var(--accent); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer;
+  background: var(--card); border: 1px solid var(--border); color: var(--text); border-radius: 7px;
+  padding: 8px 16px; font-size: 13px; font-weight: 600; text-decoration: none; transition: border-color .15s, background .15s, transform .05s;
+}
+.btn:hover { border-color: var(--accent-dim); }
+.btn:active { transform: translateY(1px); }
+.btn.primary { background: linear-gradient(180deg, #e8505a, #c22f3a); border-color: #c22f3a; color: #fff; box-shadow: 0 6px 18px var(--accent-glow); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.block { width: 100%; padding: 12px; font-size: 14px; }
+.btn.danger { color: #f0848a; border-color: #4a2228; background: transparent; }
+.btn.danger:hover { border-color: var(--accent); }
+.btn.ok { color: #6fd3b1; border-color: #1f4a3c; background: transparent; }
+.btn.ok:hover { border-color: var(--jade); }
+.btn.small { padding: 5px 11px; font-size: 12px; }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.alt-link { text-align: center; color: var(--muted); font-size: 13px; margin-top: 16px; }
+.alt-link a { color: var(--accent); }
+
+.alert { border: 1px solid; border-radius: 7px; padding: 10px 14px; margin-bottom: 16px; font-size: 13px; }
+.alert.error { border-color: #5a2229; color: #f0959a; background: #26121a; }
+.alert.success { border-color: #1f4a3c; color: #7fdcbc; background: #10211b; }
+.alert.info { border-color: #5a4320; color: var(--amber); background: #221a10; }
+
+/* ---- Sceau (hanko) */
+.stamp {
+  display: inline-block; transform: rotate(-3deg); padding: 7px 20px; border-radius: 6px;
+  border: 2px solid currentColor; box-shadow: inset 0 0 0 3px var(--panel), inset 0 0 0 4px currentColor;
+  color: var(--jade); background: rgba(47, 163, 127, .08);
+  font: 800 15px var(--title); letter-spacing: 2px; text-transform: uppercase;
+}
+.stamp.red { color: var(--accent); background: var(--accent-glow); }
+.stamp.gold { color: var(--amber); background: rgba(232, 168, 62, .08); }
+.center { text-align: center; }
+
+/* ---- Accueil */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.card { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 20px; text-decoration: none; display: block; transition: border-color .15s, transform .15s; position: relative; overflow: hidden; }
+a.card:hover { border-color: var(--accent-dim); transform: translateY(-2px); }
+a.card::after { content: '→'; position: absolute; right: 18px; top: 18px; color: var(--faint); transition: color .15s, transform .15s; }
+a.card:hover::after { color: var(--accent); transform: translateX(3px); }
+.card p { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-bottom: 22px; }
+.stat { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 14px 18px; }
+.stat b { display: block; font: 800 28px var(--title); color: var(--text); }
+.stat span { color: var(--muted); font-size: 12px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { border: 1px solid var(--border); color: var(--muted); font-size: 11.5px; font-weight: 600; padding: 2px 10px; border-radius: 999px; }
+.tag.gold { border-color: var(--accent-dim); color: #f0959a; background: var(--accent-glow); }
+.tag.green { border-color: #1f4a3c; color: #6fd3b1; background: rgba(47, 163, 127, .1); }
+.tag.red { border-color: #5a2229; color: #f0848a; background: var(--accent-glow); }
+
+/* ---- Onglets */
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; padding: 4px; background: var(--input); border: 1px solid var(--border-soft); border-radius: 9px; width: fit-content; max-width: 100%; }
+.tab { cursor: pointer; background: transparent; border: 0; border-radius: 6px; padding: 7px 14px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.tab:hover { color: var(--text); }
+.tab.active { background: var(--card); color: var(--text); box-shadow: inset 0 -2px 0 var(--accent), 0 2px 8px rgba(0, 0, 0, .3); }
+
+/* ---- Guide */
+.step { display: flex; gap: 20px; background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 12px; }
+.step .num { flex: none; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--accent-dim); color: var(--accent); font: 800 14px var(--title); }
+.step h3 { margin: 4px 0 4px; }
+.step p { margin: 0; color: var(--muted); font-size: 13.5px; }
+.template { background: var(--input); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 20px; white-space: pre-wrap; font: 13px/1.65 ui-monospace, Consolas, monospace; }
+.def { border-top: 1px solid var(--border-soft); padding: 12px 0; }
+.def:last-child { border-bottom: 1px solid var(--border-soft); }
+.def .k { color: var(--accent); font-size: 12px; font-weight: 700; }
+.def .v { font-size: 13.5px; }
+table.grid { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.grid th { text-align: left; color: var(--muted); font-size: 11.5px; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; padding: 9px 12px; border-bottom: 1px solid var(--border); }
+table.grid td { padding: 10px 12px; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+table.grid tr.click { cursor: pointer; }
+table.grid tr.click:hover td { background: var(--card); }
+.table-wrap { overflow-x: auto; }
+
+/* ---- Évaluation */
+.scorebar { position: sticky; top: 72px; z-index: 5; background: rgba(21, 17, 23, .92); backdrop-filter: blur(6px); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 18px; margin-bottom: 18px; display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
+.scorebar b { font: 800 21px var(--title); color: var(--text); }
+.q { background: var(--card); border: 1px solid var(--border-soft); border-left: 3px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 10px; transition: border-color .15s; }
+.q.correct { border-left-color: var(--jade); }
+.q.wrong { border-left-color: var(--accent); }
+.q .qhead { display: flex; gap: 14px; align-items: baseline; }
+.q .qnum { font: 800 15px var(--title); color: var(--accent); min-width: 26px; }
+.q .qtext { font-weight: 600; }
+.q .expected { margin: 8px 0 12px 40px; color: var(--muted); font-size: 13px; border-left: 2px solid var(--accent-dim); padding-left: 10px; }
+.q .qactions { margin-left: 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.q .qactions .input { flex: 1; min-width: 180px; padding: 6px 10px; font-size: 12.5px; }
+.mark.on.ok { background: var(--jade); border-color: var(--jade); color: #fff; }
+.mark.on.danger { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.copybox { background: var(--input); border: 1px solid var(--border); border-radius: 7px; padding: 14px; white-space: pre-wrap; font-size: 13px; margin-bottom: 10px; }
+
+/* ---- Administration */
+.req { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 12px; }
+.req summary { list-style: none; }
+.req summary::-webkit-details-marker { display: none; }
+.req .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 4px 18px; font-size: 13px; margin: 10px 0; }
+.req .meta b { color: var(--muted); font-weight: 500; }
+.quote { border-left: 2px solid var(--accent-dim); padding: 4px 12px; color: var(--muted); font-size: 13.5px; white-space: pre-wrap; margin: 10px 0 14px; }
+.qedit { background: var(--card); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 14px; margin-bottom: 10px; display: grid; grid-template-columns: 30px 1fr; gap: 10px; }
+.qedit textarea.input { min-height: 54px; font-size: 13px; padding: 8px 10px; }
+.rowedit { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; flex-wrap: wrap; }
+.rowedit .input { flex: 1; min-width: 140px; padding: 8px 10px; font-size: 13px; }
+.rowedit textarea.input { flex: 2; min-height: 42px; }
+.rows + .btn { margin-bottom: 4px; }
+.empty { color: var(--faint); text-align: center; padding: 30px 0; }
+
+.toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); background: var(--card); border: 1px solid var(--jade); color: #7fdcbc; border-radius: 8px; padding: 10px 18px; z-index: 50; font-size: 13px; max-width: calc(100vw - 32px); box-shadow: 0 10px 30px rgba(0, 0, 0, .4); }
+.toast.error { border-color: var(--accent); color: #f0959a; }
+
+@media (max-width: 640px) {
+  main { padding: 24px 12px 60px; }
+  header { position: static; }
+  .topbar { padding: 12px 16px; gap: 10px; }
+  .nav { margin-left: 0; }
+  .panel-head, .panel-body { padding-left: 18px; padding-right: 18px; }
+  .step { gap: 12px; padding: 16px; }
+  .q .expected, .q .qactions { margin-left: 0; }
+  .scorebar { top: 0; }
+}
+  </style>
+</head>
+<body>
+  <div class="hazard"></div>
+  <header id="header"></header>
+  <main id="app"></main>
+  <div id="toast" class="toast" hidden></div>
+  <script type="module">
+// Configuration du projet Firebase (Console → Paramètres du projet → Vos applications).
+// Ces valeurs ne sont pas secrètes : l'accès aux données est protégé par firestore.rules.
+const firebaseConfig = {
+  apiKey: "AIzaSyCgUE9HIAwb2rp0Qpnpe522mttGZxEY0Rk",
+  authDomain: "project-slayer-staff.firebaseapp.com",
+  projectId: "project-slayer-staff",
+  storageBucket: "project-slayer-staff.firebasestorage.app",
+  messagingSenderId: "1094693494932",
+  appId: "1:1094693494932:web:c4b5d01e94a24b66a25481",
+};
+
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js';
+import {
+  getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut,
+  sendPasswordResetEmail, EmailAuthProvider, reauthenticateWithCredential, updatePassword,
+} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js';
+import {
+  getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc,
+  query, where, orderBy, limit, writeBatch, getCountFromServer,
+} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js';
+
+const fb = initializeApp(firebaseConfig);
+const auth = getAuth(fb);
+const db = getFirestore(fb);
+const col = name => collection(db, name);
+
+const $app = document.getElementById('app');
+const $header = document.getElementById('header');
+const state = {
+  ready: false, me: null, notice: null,
+  config: { site_name: 'Project Slayer #🇫🇷', tracks: [] },
+  questions: [], stats: null, guide: {}, guideEdit: false,
+  run: null,            // évaluation en cours
+  guideTab: null, adminTab: 'requests', adminTrack: null,
+  archiveFilter: { track: '', result: '', q: '' },
+};
+
+// ------------------------------------------------------------ Outils
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmtDate = iso => iso ? new Date(iso).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' }) : '—';
+const now = () => new Date().toISOString();
+const trackName = key => state.config.tracks.find(t => t.key === key)?.name || key;
+const isAdmin = () => state.me?.role === 'admin';
+
+const ERRORS = {
+  'auth/invalid-credential': 'E-mail ou mot de passe incorrect.',
+  'auth/wrong-password': 'E-mail ou mot de passe incorrect.',
+  'auth/user-not-found': 'E-mail ou mot de passe incorrect.',
+  'auth/missing-password': 'Entrez votre mot de passe.',
+  'auth/email-already-in-use': 'Un compte existe déjà avec cette adresse e-mail.',
+  'auth/weak-password': 'Mot de passe trop faible (8 caractères minimum).',
+  'auth/invalid-email': 'Adresse e-mail invalide.',
+  'auth/missing-email': 'Entrez votre adresse e-mail.',
+  'auth/too-many-requests': 'Trop de tentatives. Réessayez dans quelques minutes.',
+  'auth/network-request-failed': 'Connexion impossible. Vérifiez votre connexion Internet.',
+  'auth/requires-recent-login': 'Reconnectez-vous puis réessayez.',
+  'permission-denied': "Accès refusé : vous n'avez pas l'autorisation pour cette action.",
+  'unavailable': 'Serveur injoignable. Vérifiez votre connexion Internet.',
+};
+const errMsg = e => ERRORS[e?.code] || e?.message || 'Erreur inconnue.';
+const fail = msg => { throw new Error(msg); };
+
+let toastTimer;
+function toast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast' + (isError ? ' error' : ''); t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 3500);
+}
+
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); toast('Copié dans le presse-papiers.'); }
+  catch { toast('Copie impossible, sélectionnez le texte manuellement.', true); }
+}
+
+const formData = form => Object.fromEntries(new FormData(form).entries());
+const checked = (form, name) => [...form.querySelectorAll(`input[name="${name}"]:checked`)].map(i => i.value);
+function showError(form, msg) {
+  let box = form.querySelector(':scope > .alert');
+  if (!box) { box = document.createElement('div'); form.prepend(box); }
+  box.className = 'alert error'; box.textContent = msg;
+}
+function str(v, field, min, max) {
+  const s = String(v ?? '').trim();
+  if (s.length < min) fail(`Le champ « ${field} » est requis${min > 1 ? ` (${min} caractères minimum)` : ''}.`);
+  if (s.length > max) fail(`Le champ « ${field} » est trop long (${max} caractères maximum).`);
+  return s;
+}
+function discordId(v, required) {
+  const s = String(v ?? '').trim();
+  if (!s && !required) return '';
+  if (!/^\d{17,20}$/.test(s)) fail("L'ID Discord doit être un nombre de 17 à 20 chiffres.");
+  return s;
+}
+
+function go(page) {
+  const h = '#/' + page;
+  if (location.hash === h) render(); else location.hash = h;
+}
+
+function panel(eyebrow, title, body, extra = '') {
+  return `<div class="panel">
+    <div class="panel-head"><div class="eyebrow">${esc(eyebrow)}</div><h1>${esc(title)}</h1>${extra}</div>
+    <div class="panel-body">${body}</div></div>`;
+}
+
+const trackChecks = (name, selected) => state.config.tracks.length
+  ? `<div class="checks">${state.config.tracks.map(t =>
+    `<label class="check"><input type="checkbox" name="${name}" value="${esc(t.key)}" ${selected.includes(t.key) ? 'checked' : ''}> ${esc(t.name)}</label>`).join('')}</div>`
+  : '<span class="faint small">Aucune formation configurée.</span>';
+
+// ------------------------------------------------------------ Données
+
+async function loadPublic() {
+  const [settings, tracks] = await Promise.all([getDoc(doc(db, 'settings', 'general')), getDocs(query(col('tracks'), orderBy('ord')))]);
+  if (settings.exists()) state.config.site_name = settings.data().site_name || state.config.site_name;
+  state.config.tracks = tracks.docs.map(d => ({ key: d.id, ...d.data(), total: 0 }));
+  countQuestions();
+}
+
+async function loadQuestions() {
+  const snap = await getDocs(col('questions'));
+  state.questions = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => a.ord - b.ord);
+  countQuestions();
+}
+function countQuestions() {
+  for (const t of state.config.tracks) t.total = state.questions.filter(q => q.track === t.key).length;
+}
+const trackQuestions = key => state.questions.filter(q => q.track === key);
+
+async function loadStats() {
+  const cnt = async q => (await getCountFromServer(q)).data().count;
+  const ev = col('evaluations');
+  const [total, passed, mine, pending] = await Promise.all([
+    cnt(ev), cnt(query(ev, where('passed', '==', true))), cnt(query(ev, where('trainerUid', '==', state.me.uid))),
+    isAdmin() ? cnt(query(col('users'), where('status', '==', 'pending'))) : 0,
+  ]);
+  state.stats = { total, passed, mine, pending };
+}
+
+// Écritures groupées (Firestore limite un lot à 500 opérations).
+async function commitOps(ops) {
+  for (let i = 0; i < ops.length; i += 400) {
+    const batch = writeBatch(db);
+    ops.slice(i, i + 400).forEach(op => op(batch));
+    await batch.commit();
+  }
+}
+
+// ------------------------------------------------------------ Authentification
+
+const startAuth = () => onAuthStateChanged(auth, async user => {
+  if (state.registering) return;
+  state.me = null;
+  if (user) {
+    try {
+      const snap = await getDoc(doc(db, 'users', user.uid));
+      const u = snap.exists() ? snap.data() : null;
+      const refusal = !u ? 'Ce compte a été supprimé ou est incomplet. Contactez la direction.'
+        : u.status === 'pending' ? "Votre demande d'accès est en attente de validation par un administrateur."
+        : u.status === 'rejected' ? "Votre demande d'accès a été refusée." + (u.review_note ? ` Motif : ${u.review_note}` : '')
+        : u.status === 'suspended' ? 'Votre accès a été suspendu. Contactez la direction.'
+        : u.status !== 'approved' ? 'Accès non autorisé.' : null;
+      if (refusal) {
+        state.notice = { type: 'info', text: refusal };
+        await signOut(auth);
+        return;
+      }
+      state.me = { uid: user.uid, ...u };
+      await loadQuestions();
+    } catch (e) {
+      state.notice = { type: 'error', text: errMsg(e) };
+      await signOut(auth);
+      return;
+    }
+  } else {
+    state.questions = []; state.guide = {}; state.run = null; state.stats = null;
+  }
+  state.ready = true;
+  render();
+});
+
+// ------------------------------------------------------------ Rendu
+
+function renderHeader(page) {
+  document.title = `${state.config.site_name} — Intranet formation`;
+  const brand = href => `<a class="brand" href="${href}"><span class="sigil">滅</span>
+    <span><b>${esc(state.config.site_name).replaceAll('🇫🇷', '<i class="flag-fr" title="France"></i>')}</b><small>Intranet formation staff</small></span></a>`;
+  if (!state.me) {
+    $header.innerHTML = `<div class="topbar">${brand('#/login')}</div>`;
+    return;
+  }
+  const link = (p, label, badge) => `<a class="link ${page === p ? 'active' : ''}" href="#/${p}">${label}${badge ? `<span class="badge">${badge}</span>` : ''}</a>`;
+  $header.innerHTML = `<div class="topbar">
+    ${brand('#/')}
+    <nav class="nav">
+      ${link('', 'Accueil')}${link('guide', 'Guide')}${link('evaluation', 'Évaluation')}${link('archives', 'Archives')}
+      ${isAdmin() ? link('admin', 'Administration', state.stats?.pending) : ''}
+      <a class="chip" href="#/compte" title="Mon compte">${isAdmin() ? 'Admin' : 'Formateur'} · ${esc(state.me.pseudo)}</a>
+      <button class="btn" data-action="logout">Déconnexion</button>
+    </nav></div>`;
+}
+
+async function render() {
+  if (!state.ready) return;
+  const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+  const page = parts[0] || '';
+  if (!state.me && !['login', 'register'].includes(page)) return go('login');
+  if (state.me && ['login', 'register'].includes(page)) return go('');
+  if (state.run && page !== 'evaluation') state.run = null;
+  if (state.me) await loadStats().catch(() => {});
+  renderHeader(page);
+  window.scrollTo(0, 0);
+  try {
+    const view = {
+      login: viewLogin, register: viewRegister, '': viewHome, guide: viewGuide, evaluation: viewEvaluation,
+      archives: viewArchives, admin: viewAdmin, compte: viewAccount,
+    }[page];
+    if (!view || (page === 'admin' && !isAdmin())) return go('');
+    await view(parts.slice(1));
+  } catch (e) {
+    $app.innerHTML = `<div class="wrap"><div class="alert error">${esc(errMsg(e))}</div></div>`;
+  }
+}
+
+// ------------------------------------------------------------ Connexion / inscription
+
+function viewLogin() {
+  const n = state.notice; state.notice = null;
+  $app.innerHTML = `<div class="wrap narrow">${panel('Accès réservé au staff', 'Connexion', `
+    <form data-form="login">
+      ${n ? `<div class="alert ${n.type}">${esc(n.text)}</div>` : ''}
+      <p class="muted small" style="margin-top:0">Pour accéder à l'intranet, il faut un compte <strong>et</strong> une autorisation d'un administrateur.</p>
+      <label class="field"><span>Adresse e-mail</span><input class="input" type="email" name="email" required autocomplete="email"></label>
+      <label class="field"><span>Mot de passe</span><input class="input" type="password" name="password" required autocomplete="current-password"></label>
+      <button class="btn primary block">Se connecter</button>
+      <p class="alt-link"><a href="#" data-action="reset-password">Mot de passe oublié ?</a></p>
+      <p class="alt-link" style="margin-top:6px">Pas encore de compte ? <a href="#/register">Demander un accès</a></p>
+    </form>`)}</div>`;
+}
+
+function viewRegister() {
+  $app.innerHTML = `<div class="wrap narrow">${panel('Formulaire 01-A', "Demande d'accès", `
+    <form data-form="register">
+      <p class="muted small" style="margin-top:0">Créez votre compte formateur. Un administrateur devra valider votre demande avant que vous puissiez vous connecter.</p>
+      <label class="field"><span>Pseudo Discord</span><input class="input" name="pseudo" required maxlength="40"></label>
+      <label class="field"><span>ID Discord</span><input class="input" name="discord_id" required inputmode="numeric" placeholder="678215722089971712">
+        <small class="hint">Discord → Paramètres → Avancés → Mode développeur, puis clic droit sur votre profil → Copier l'ID.</small></label>
+      <label class="field"><span>Âge</span><input class="input" type="number" name="age" min="13" max="99" required></label>
+      <label class="field"><span>Adresse e-mail</span><input class="input" type="email" name="email" required autocomplete="email"></label>
+      <label class="field"><span>Mot de passe</span><input class="input" type="password" name="password" minlength="8" required autocomplete="new-password"><small class="hint">8 caractères minimum.</small></label>
+      <label class="field"><span>Confirmer le mot de passe</span><input class="input" type="password" name="confirm" required autocomplete="new-password"></label>
+      <div class="field"><label class="field" style="margin-bottom:6px"><span>Spécialités demandées</span></label>${trackChecks('requested', [])}
+        <small class="hint">Les formations que vous souhaitez pouvoir faire passer.</small></div>
+      <div class="space"></div>
+      <label class="field"><span>Motivation</span><textarea class="input" name="motivation" maxlength="1500" placeholder="Pourquoi voulez-vous devenir formateur ? Votre expérience dans le staff…"></textarea></label>
+      <button class="btn primary block">Envoyer la demande</button>
+      <p class="alt-link">Déjà un compte ? <a href="#/login">Se connecter</a></p>
+    </form>`)}</div>`;
+}
+
+const forms = {
+  async login(f) {
+    const d = formData(f);
+    try { await signInWithEmailAndPassword(auth, d.email.trim(), d.password); }
+    catch (e) { showError(f, errMsg(e)); }
+  },
+  async register(f) {
+    const d = formData(f);
+    let profile;
+    try {
+      if (d.password !== d.confirm) fail('Les mots de passe ne correspondent pas.');
+      if (d.password.length < 8) fail('Le mot de passe doit contenir au moins 8 caractères.');
+      const age = Number(d.age);
+      if (!Number.isInteger(age) || age < 13 || age > 99) fail('Âge invalide.');
+      const requested = checked(f, 'requested');
+      if (state.config.tracks.length && !requested.length) fail('Choisissez au moins une spécialité.');
+      profile = {
+        pseudo: str(d.pseudo, 'Pseudo Discord', 2, 40), discord_id: discordId(d.discord_id, true), age,
+        email: str(d.email, 'Adresse e-mail', 3, 120).toLowerCase(), motivation: str(d.motivation, 'Motivation', 20, 1500),
+        requested, specialties: [], role: 'formateur', status: 'pending',
+        review_note: '', reviewed_by: '', reviewed_at: '', created_at: now(),
+      };
+    } catch (e) { return showError(f, e.message); }
+
+    state.registering = true;
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, profile.email, d.password);
+      try { await setDoc(doc(db, 'users', cred.user.uid), profile); }
+      catch (e) { await cred.user.delete().catch(() => {}); throw e; }
+      await signOut(auth);
+      state.registering = false;
+      state.notice = { type: 'success', text: "Demande envoyée ! Un administrateur doit valider votre accès : vous pourrez vous connecter dès qu'elle sera acceptée." };
+      go('login');
+    } catch (e) { state.registering = false; showError(f, errMsg(e)); }
+  },
+};
+
+// ------------------------------------------------------------ Accueil
+
+function viewHome() {
+  const s = state.stats || {};
+  const specs = (state.me.specialties || []).map(k => `<span class="tag gold">${esc(trackName(k))}</span>`).join('') || '<span class="faint small">Aucune spécialité</span>';
+  const empty = isAdmin() && !state.config.tracks.length
+    ? `<div class="alert info">La base est vide. Allez dans <a href="#/admin" data-action="admin-settings">Administration → Paramètres</a> et importez le fichier <strong>donnees-initiales.json</strong> pour charger les formations, les questions et le guide.</div>` : '';
+  $app.innerHTML = `<div class="wrap">${panel('Accès autorisé', `Bienvenue, ${state.me.pseudo}`, `
+    ${empty}
+    <div class="center" style="margin:6px 0 26px"><span class="stamp">${isAdmin() ? 'Administrateur' : 'Formateur'}</span></div>
+    <div class="stats">
+      <div class="stat"><b>${s.mine ?? 0}</b><span>Mes évaluations</span></div>
+      <div class="stat"><b>${s.total ?? 0}</b><span>Évaluations totales</span></div>
+      <div class="stat"><b>${s.total ? Math.round(100 * s.passed / s.total) : 0}%</b><span>Taux de réussite</span></div>
+    </div>
+    <div class="row" style="margin-bottom:22px"><span class="muted small">Spécialités :</span><div class="tags">${isAdmin() ? '<span class="tag gold">Toutes</span>' : specs}</div></div>
+    <div class="cards">
+      <a class="card" href="#/guide"><div class="eyebrow">Documents à connaître</div><h3>Guide de formation</h3><p>Procédures de recrutement, modèles de candidature, règles staff et barème.</p></a>
+      <a class="card" href="#/evaluation"><div class="eyebrow">Formation</div><h3>Nouvelle évaluation</h3><p>Démarrer une fiche de test pour une recrue (modérateur, animateur, helpeur…).</p></a>
+      <a class="card" href="#/archives"><div class="eyebrow">Registre</div><h3>Archives</h3><p>Consulter l'historique de toutes les évaluations passées.</p></a>
+      ${isAdmin() ? `<a class="card" href="#/admin"><div class="eyebrow">Administration</div><h3>Demandes d'accès ${s.pending ? `<span class="badge">${s.pending}</span>` : ''}</h3><p>Valider les comptes, gérer les membres, modifier les questions.</p></a>` : ''}
+    </div>`)}</div>`;
+}
+
+// ------------------------------------------------------------ Guide
+
+const ROWS = {
+  steps: [['title', 'Titre', 'input'], ['text', 'Description', 'textarea']],
+  rules: [['k', 'Titre', 'input'], ['v', 'Texte', 'textarea']],
+  channels: [['k', 'Salon', 'input'], ['v', 'Utilité', 'textarea']],
+  sanctions: [['infraction', 'Infraction', 'input'], ['s1', '1re fois', 'input'], ['s2', '2e fois', 'input'], ['s3', '3e fois', 'input']],
+};
+const rowHtml = (kind, o = {}) => `<div class="rowedit">${ROWS[kind].map(([f, label, type]) => type === 'textarea'
+  ? `<textarea class="input" data-f="${f}" placeholder="${label}">${esc(o[f])}</textarea>`
+  : `<input class="input" data-f="${f}" placeholder="${label}" value="${esc(o[f])}">`).join('')}
+  <button type="button" class="btn small danger" data-action="row-del" title="Supprimer">✕</button></div>`;
+const rowsBlock = (kind, list = []) => `<div class="rows" data-rows="${kind}">${list.map(o => rowHtml(kind, o)).join('')}</div>
+  <button type="button" class="btn small" data-action="row-add" data-kind="${kind}">+ Ajouter</button>`;
+const readRows = (form, kind) => [...form.querySelectorAll(`[data-rows="${kind}"] .rowedit`)].map(r =>
+  Object.fromEntries([...r.querySelectorAll('[data-f]')].map(i => [i.dataset.f, i.value.trim()]))).filter(o => Object.values(o).some(Boolean));
+
+async function getGuide(key) {
+  if (!(key in state.guide)) {
+    const snap = await getDoc(doc(db, 'guide', key));
+    state.guide[key] = snap.exists() ? snap.data() : null;
+  }
+  return state.guide[key];
+}
+
+async function viewGuide() {
+  const tabs = state.config.tracks.map(t => [t.key, t.name]).concat([['reference', 'Règles staff (référence)']]);
+  if (!tabs.some(([k]) => k === state.guideTab)) state.guideTab = tabs[0][0];
+  const tab = state.guideTab;
+  const g = await getGuide(tab);
+  const editBtn = isAdmin() && !state.guideEdit ? `<button class="btn small" data-action="guide-edit">✎ Modifier</button>` : '';
+  let body;
+  if (state.guideEdit && isAdmin()) {
+    body = tab === 'reference' ? `<form data-form="guide-save">
+        <div class="section-title">Règles staff</div>${rowsBlock('rules', g?.rules)}
+        <div class="section-title">Hiérarchie (un grade par ligne, du plus bas au plus haut)</div>
+        <textarea class="input" name="hierarchy" style="min-height:160px">${esc((g?.hierarchy || []).join('\n'))}</textarea>
+        <div class="section-title">Barème des sanctions</div>${rowsBlock('sanctions', g?.sanctions)}
+        <div class="section-title">Salons à connaître</div>${rowsBlock('channels', g?.channels)}
+        <hr class="sep"><div class="row"><button type="button" class="btn" data-action="guide-cancel">Annuler</button><div class="grow"></div><button class="btn primary">Enregistrer le guide</button></div></form>`
+      : `<form data-form="guide-save">
+        <p class="faint small" style="margin-top:0">{total} et {threshold} sont remplacés automatiquement par le nombre de questions et le seuil.</p>
+        <div class="section-title">Étapes</div>${rowsBlock('steps', g?.steps)}
+        <div class="section-title">Modèle de candidature</div>
+        <textarea class="input" name="template" style="min-height:220px;font-family:ui-monospace,Consolas,monospace">${esc(g?.template)}</textarea>
+        <hr class="sep"><div class="row"><button type="button" class="btn" data-action="guide-cancel">Annuler</button><div class="grow"></div><button class="btn primary">Enregistrer le guide</button></div></form>`;
+  } else if (!g) {
+    body = `<div class="empty">Aucun guide pour l'instant.${isAdmin() ? ' Cliquez sur « Modifier » pour le rédiger.' : ''}</div>`;
+  } else if (tab === 'reference') {
+    body = `
+      ${(g.rules || []).map(r => `<div class="def"><div class="k">${esc(r.k)}</div><div class="v">${esc(r.v)}</div></div>`).join('')}
+      <div class="section-title">Hiérarchie staff</div>
+      <div class="tags">${(g.hierarchy || []).map((h, i) => `<span class="tag">${i + 1}. ${esc(h)}</span>`).join('')}</div>
+      <div class="section-title">Barème des sanctions</div>
+      <div class="table-wrap"><table class="grid"><tr><th>Infraction</th><th>1re fois</th><th>2e fois</th><th>3e fois</th></tr>
+        ${(g.sanctions || []).map(r => `<tr><td>${esc(r.infraction)}</td><td>${esc(r.s1)}</td><td>${esc(r.s2)}</td><td>${esc(r.s3)}</td></tr>`).join('')}</table></div>
+      <div class="section-title">Salons à connaître</div>
+      ${(g.channels || []).map(r => `<div class="def"><div class="k">${esc(r.k)}</div><div class="v">${esc(r.v)}</div></div>`).join('')}`;
+  } else {
+    const t = state.config.tracks.find(x => x.key === tab);
+    const fill = s => String(s ?? '').replaceAll('{total}', t.total).replaceAll('{threshold}', t.threshold);
+    body = `${(g.steps || []).map((s, i) => `<div class="step"><div class="num">${String(i + 1).padStart(2, '0')}</div>
+        <div><h3>${esc(fill(s.title))}</h3><p>${esc(fill(s.text))}</p></div></div>`).join('')}
+      ${g.template ? `<div class="section-title">Modèle de message — candidature</div>
+      <div class="template">${esc(g.template)}</div>
+      <div class="space"></div><button class="btn" data-action="copy-template">Copier le modèle</button>` : ''}`;
+  }
+  $app.innerHTML = `<div class="wrap">${panel('Procédure interne', 'Guide de formation', `
+    <div class="row" style="align-items:flex-start"><div class="tabs grow" style="width:auto">${tabs.map(([k, n]) => `<button class="tab ${k === tab ? 'active' : ''}" data-action="guide-tab" data-key="${esc(k)}">${esc(n)}</button>`).join('')}</div>${editBtn}</div>
+    ${body}`)}</div>`;
+}
+
+forms['guide-save'] = async f => {
+  const tab = state.guideTab;
+  const data = tab === 'reference'
+    ? { rules: readRows(f, 'rules'), sanctions: readRows(f, 'sanctions'), channels: readRows(f, 'channels'),
+      hierarchy: f.hierarchy.value.split('\n').map(s => s.trim()).filter(Boolean) }
+    : { steps: readRows(f, 'steps'), template: f.template.value };
+  try {
+    await setDoc(doc(db, 'guide', tab), data);
+    state.guide[tab] = data; state.guideEdit = false;
+    toast('Guide enregistré.'); viewGuide();
+  } catch (e) { showError(f, errMsg(e)); }
+};
+
+// ------------------------------------------------------------ Évaluation
+
+const allowedTracks = () => state.config.tracks.filter(t => isAdmin() || (state.me.specialties || []).includes(t.key));
+
+function viewEvaluation(sub) {
+  if (sub[0] === 'run' && state.run) return viewEvalRun();
+  const tracks = allowedTracks();
+  if (!tracks.length) {
+    $app.innerHTML = `<div class="wrap narrow">${panel("Fiche d'évaluation", 'Nouvelle évaluation', `<div class="alert info">Aucune formation disponible pour vous. Demandez à un administrateur.</div>`)}</div>`;
+    return;
+  }
+  $app.innerHTML = `<div class="wrap narrow">${panel("Fiche d'évaluation", 'Nouvelle évaluation', `
+    <form data-form="eval-start">
+      <label class="field"><span>Type de formation</span><select class="input" name="track">
+        ${tracks.map(t => `<option value="${esc(t.key)}">${esc(t.name)} — ${t.total} questions (seuil ${t.threshold}/${t.total})</option>`).join('')}</select></label>
+      <label class="field"><span>Pseudo Discord de la recrue</span><input class="input" name="recruit_name" required maxlength="40"></label>
+      <label class="field"><span>ID Discord de la recrue</span><input class="input" name="discord_id" inputmode="numeric" placeholder="678215722089971712">
+        <small class="hint">ID numérique (pas le pseudo) — Mode développeur, puis clic droit sur le profil → Copier l'ID. Sert à mentionner la recrue dans le message Discord.</small></label>
+      <label class="field"><span>Pseudo en jeu (optionnel)</span><input class="input" name="ingame" maxlength="40"></label>
+      <button class="btn primary block">Démarrer l'évaluation</button>
+    </form>`)}</div>`;
+}
+
+forms['eval-start'] = async f => {
+  const d = formData(f);
+  try {
+    const recruit = { recruit_name: str(d.recruit_name, 'Pseudo de la recrue', 2, 40), discord_id: discordId(d.discord_id, false), ingame: str(d.ingame, 'Pseudo en jeu', 0, 40) };
+    await loadQuestions();
+    const questions = trackQuestions(d.track);
+    if (!questions.length) fail("Cette formation n'a encore aucune question.");
+    const t = state.config.tracks.find(x => x.key === d.track);
+    state.run = { track: d.track, name: t.name, threshold: t.threshold, recruit, questions, marks: {} };
+    go('evaluation/run');
+  } catch (e) { showError(f, errMsg(e)); }
+};
+
+function viewEvalRun() {
+  const r = state.run;
+  $app.innerHTML = `<div class="wrap">${panel(`Fiche d'évaluation — ${r.name}`, r.recruit.recruit_name, `
+    <div class="scorebar" id="scorebar"></div>
+    ${r.questions.map((q, i) => `<div class="q" id="q-${q.id}">
+      <div class="qhead"><div class="qnum">${String(i + 1).padStart(2, '0')}</div><div class="qtext">${esc(q.text)}</div></div>
+      ${q.answer ? `<div class="expected">Réponse attendue : ${esc(q.answer)}</div>` : '<div class="space"></div>'}
+      <div class="qactions">
+        <button class="btn small ok mark" data-action="mark" data-id="${q.id}" data-v="1">✓ Correct</button>
+        <button class="btn small danger mark" data-action="mark" data-id="${q.id}" data-v="0">✗ Incorrect</button>
+        <input class="input" data-note="${q.id}" maxlength="500" placeholder="Note (optionnel) — réponse donnée par la recrue…">
+      </div></div>`).join('')}
+    <label class="field" style="margin-top:22px"><span>Commentaire du formateur</span><textarea class="input" id="eval-comment" maxlength="2000" placeholder="Points forts, points à revoir…"></textarea></label>
+    <div class="row"><button class="btn" data-action="eval-cancel">Annuler</button><div class="grow"></div>
+      <button class="btn primary" id="eval-submit" data-action="eval-submit">Terminer et enregistrer</button></div>`,
+    `<div class="row small muted" style="margin-top:8px">${r.recruit.discord_id ? `<span>ID : ${esc(r.recruit.discord_id)}</span>` : ''}${r.recruit.ingame ? `<span>En jeu : ${esc(r.recruit.ingame)}</span>` : ''}<span>Formateur : ${esc(state.me.pseudo)}</span></div>`)}</div>`;
+  updateScore();
+}
+
+function updateScore() {
+  const r = state.run, total = r.questions.length;
+  const marked = Object.keys(r.marks).length, score = Object.values(r.marks).filter(Boolean).length;
+  const status = marked < total ? `<span class="tag">En cours</span>` : score >= r.threshold ? '<span class="tag green">Admis</span>' : '<span class="tag red">Refusé</span>';
+  document.getElementById('scorebar').innerHTML = `<span>Score <b>${score}/${total}</b></span><span class="muted">Seuil ${r.threshold}/${total}</span>
+    <span class="muted">Notées ${marked}/${total}</span><div class="grow"></div>${status}`;
+  document.getElementById('eval-submit').disabled = marked < total;
+}
+
+window.addEventListener('beforeunload', e => { if (state.run && Object.keys(state.run.marks).length) e.preventDefault(); });
+
+// ------------------------------------------------------------ Archives
+
+async function viewArchives(sub) {
+  if (sub[0]) return viewArchiveDetail(sub[0]);
+  const snap = await getDocs(query(col('evaluations'), orderBy('created_at', 'desc'), limit(2000)));
+  state.archives = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  const F = state.archiveFilter;
+  $app.innerHTML = `<div class="wrap">${panel('Registre', 'Archives des évaluations', `
+    <div class="row" style="margin-bottom:18px">
+      <input class="input grow" id="f-q" placeholder="Rechercher (pseudo, ID, formateur)…" value="${esc(F.q)}" style="min-width:200px">
+      <select class="input" id="f-track" style="width:auto"><option value="">Toutes formations</option>
+        ${state.config.tracks.map(t => `<option value="${esc(t.key)}" ${F.track === t.key ? 'selected' : ''}>${esc(t.name)}</option>`).join('')}</select>
+      <select class="input" id="f-result" style="width:auto"><option value="">Tous résultats</option>
+        <option value="1" ${F.result === '1' ? 'selected' : ''}>Admis</option><option value="0" ${F.result === '0' ? 'selected' : ''}>Refusés</option></select>
+    </div>
+    <div class="table-wrap" id="archive-table"></div>`)}</div>`;
+  renderArchiveTable();
+}
+
+function renderArchiveTable() {
+  const F = state.archiveFilter, q = F.q.toLowerCase();
+  const rows = state.archives.filter(e => (!F.track || e.track === F.track) && (F.result === '' || (e.passed ? '1' : '0') === F.result)
+    && (!q || [e.recruit_name, e.discord_id, e.ingame, e.trainer_name].some(v => String(v ?? '').toLowerCase().includes(q))));
+  document.getElementById('archive-table').innerHTML = rows.length ? `<table class="grid">
+    <tr><th>Date</th><th>Recrue</th><th>Formation</th><th>Score</th><th>Résultat</th><th>Formateur</th></tr>
+    ${rows.map(e => `<tr class="click" data-action="open-eval" data-id="${esc(e.id)}">
+      <td class="muted">${fmtDate(e.created_at)}</td><td>${esc(e.recruit_name)}</td><td>${esc(e.track_name)}</td>
+      <td>${e.score}/${e.total}</td><td>${e.passed ? '<span class="tag green">Admis</span>' : '<span class="tag red">Refusé</span>'}</td>
+      <td class="muted">${esc(e.trainer_name)}</td></tr>`).join('')}</table>`
+    : '<div class="empty">Aucune évaluation.</div>';
+}
+
+function discordMessage(e) {
+  const who = e.discord_id ? `<@${e.discord_id}>` : e.recruit_name;
+  return e.passed
+    ? `${who} Félicitations ! Vous avez réussi votre formation **${e.track_name}** avec un score de **${e.score}/${e.total}** (seuil : ${e.threshold}). Formé(e) par ${e.trainer_name}. Bienvenue dans l'équipe !`
+    : `${who} Malheureusement, vous n'avez pas obtenu le score requis pour la formation **${e.track_name}** (**${e.score}/${e.total}**, seuil : ${e.threshold}). Vous pourrez retenter votre chance plus tard. Merci pour votre investissement !`;
+}
+
+async function viewArchiveDetail(id) {
+  const snap = await getDoc(doc(db, 'evaluations', id));
+  if (!snap.exists()) fail('Évaluation introuvable.');
+  const e = state.current = { id: snap.id, ...snap.data() };
+  $app.innerHTML = `<div class="wrap">${panel(`Évaluation — ${e.track_name}`, e.recruit_name, `
+    <div class="center" style="margin-bottom:22px"><span class="stamp ${e.passed ? '' : 'red'}">${e.passed ? 'Admis' : 'Refusé'} · ${e.score}/${e.total}</span></div>
+    <div class="req meta" style="display:grid">
+      <div><b>Formation :</b> ${esc(e.track_name)}</div><div><b>Seuil :</b> ${e.threshold}/${e.total}</div>
+      <div><b>ID Discord :</b> ${esc(e.discord_id || '—')}</div><div><b>Pseudo en jeu :</b> ${esc(e.ingame || '—')}</div>
+      <div><b>Formateur :</b> ${esc(e.trainer_name)}</div><div><b>Date :</b> ${fmtDate(e.created_at)}</div>
+    </div>
+    <div class="section-title">Message Discord</div>
+    <div class="copybox">${esc(discordMessage(e))}</div>
+    <button class="btn" data-action="copy-discord">Copier le message</button>
+    ${e.comment ? `<div class="section-title">Commentaire du formateur</div><div class="quote">${esc(e.comment)}</div>` : ''}
+    <div class="section-title">Détail des réponses</div>
+    ${(e.answers || []).map((a, i) => `<div class="q ${a.correct ? 'correct' : 'wrong'}">
+      <div class="qhead"><div class="qnum">${String(i + 1).padStart(2, '0')}</div><div class="qtext grow">${esc(a.question)}</div>
+        ${a.correct ? '<span class="tag green">✓</span>' : '<span class="tag red">✗</span>'}</div>
+      ${a.expected ? `<div class="expected">Attendu : ${esc(a.expected)}</div>` : ''}
+      ${a.note ? `<div class="expected" style="border-color:var(--border)">Note : ${esc(a.note)}</div>` : ''}</div>`).join('')}
+    <hr class="sep"><div class="row"><a class="btn" href="#/archives">← Retour aux archives</a><div class="grow"></div>
+      ${isAdmin() ? `<button class="btn danger" data-action="delete-eval" data-id="${esc(e.id)}">Supprimer</button>` : ''}</div>`)}</div>`;
+}
+
+// ------------------------------------------------------------ Mon compte
+
+function viewAccount() {
+  const u = state.me;
+  $app.innerHTML = `<div class="wrap narrow">${panel('Dossier personnel', 'Mon compte', `
+    <div class="req meta" style="display:grid;grid-template-columns:1fr">
+      <div><b>Pseudo :</b> ${esc(u.pseudo)}</div><div><b>ID Discord :</b> ${esc(u.discord_id)}</div>
+      <div><b>E-mail :</b> ${esc(u.email)}</div><div><b>Rôle :</b> ${isAdmin() ? 'Administrateur' : 'Formateur'}</div>
+      <div><b>Spécialités :</b> ${isAdmin() ? 'Toutes' : esc((u.specialties || []).map(trackName).join(', ') || '—')}</div>
+    </div>
+    <div class="section-title">Changer de mot de passe</div>
+    <form data-form="password">
+      <label class="field"><span>Mot de passe actuel</span><input class="input" type="password" name="current" required autocomplete="current-password"></label>
+      <label class="field"><span>Nouveau mot de passe</span><input class="input" type="password" name="next" minlength="8" required autocomplete="new-password"></label>
+      <button class="btn primary block">Mettre à jour</button>
+    </form>`)}</div>`;
+}
+
+forms.password = async f => {
+  const d = formData(f);
+  try {
+    if (d.next.length < 8) fail('Le nouveau mot de passe doit contenir au moins 8 caractères.');
+    await reauthenticateWithCredential(auth.currentUser, EmailAuthProvider.credential(auth.currentUser.email, d.current));
+    await updatePassword(auth.currentUser, d.next);
+    f.reset(); toast('Mot de passe mis à jour.');
+  } catch (e) { showError(f, e.code === 'auth/invalid-credential' ? 'Mot de passe actuel incorrect.' : errMsg(e)); }
+};
+
+// ------------------------------------------------------------ Administration
+
+async function viewAdmin() {
+  const tabs = [['requests', `Demandes${state.stats?.pending ? ` (${state.stats.pending})` : ''}`], ['members', 'Membres'], ['questions', 'Formations & questions'], ['settings', 'Paramètres']];
+  const tab = state.adminTab;
+  let body = '';
+  if (tab === 'requests' || tab === 'members') {
+    const snap = await getDocs(col('users'));
+    const users = snap.docs.map(d => ({ uid: d.id, ...d.data() })).sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
+    body = tab === 'requests' ? adminRequests(users.filter(u => u.status === 'pending')) : adminMembers(users.filter(u => u.status !== 'pending'));
+  } else if (tab === 'questions') {
+    await loadQuestions();
+    body = adminQuestions();
+  } else {
+    body = `<form data-form="settings">
+      <label class="field"><span>Nom du serveur</span><input class="input" name="site_name" maxlength="40" value="${esc(state.config.site_name)}"></label>
+      <button class="btn primary">Enregistrer</button></form>
+    <div class="section-title">Importer les données</div>
+    <p class="muted small" style="margin-top:0">Charge un fichier <strong>donnees-initiales.json</strong> (ou une sauvegarde) : formations, questions et guide.
+      Les formations, questions et pages du guide existantes sont remplacées. Les comptes et les archives ne sont pas touchés.</p>
+    <div class="row"><input type="file" id="import-file" accept=".json,application/json" class="input grow"><button class="btn primary" data-action="import">Importer</button></div>
+    <div class="section-title">Sauvegarde</div>
+    <p class="muted small" style="margin-top:0">Télécharge tout le contenu (formations, questions, guide, comptes, archives) dans un fichier JSON.</p>
+    <button class="btn" data-action="export">Télécharger une sauvegarde</button>`;
+  }
+  $app.innerHTML = `<div class="wrap">${panel('Direction', 'Administration', `
+    <div class="tabs">${tabs.map(([k, n]) => `<button class="tab ${k === tab ? 'active' : ''}" data-action="admin-tab" data-key="${k}">${esc(n)}</button>`).join('')}</div>
+    ${body}`)}</div>`;
+}
+
+function adminRequests(list) {
+  if (!list.length) return '<div class="empty">Aucune demande en attente.</div>';
+  return list.map(u => `<form class="req" data-form="review" data-id="${esc(u.uid)}">
+    <div class="row"><h3 class="grow">${esc(u.pseudo)}</h3><span class="faint small">Demande du ${fmtDate(u.created_at)}</span></div>
+    <div class="meta"><div><b>ID Discord :</b> ${esc(u.discord_id)}</div><div><b>E-mail :</b> ${esc(u.email)}</div><div><b>Âge :</b> ${esc(u.age)} ans</div></div>
+    <div class="quote">${esc(u.motivation)}</div>
+    <label class="field"><span>Spécialités accordées</span>${trackChecks('specialties', u.requested || [])}</label>
+    <div class="row" style="margin-bottom:14px">
+      <label class="field grow" style="margin:0"><span>Rôle</span><select class="input" name="role"><option value="formateur">Formateur</option><option value="admin">Administrateur</option></select></label>
+      <label class="field grow" style="margin:0"><span>Note (motif de refus, optionnel)</span><input class="input" name="note" maxlength="300"></label>
+    </div>
+    <div class="row"><button class="btn primary" name="action" value="approve">✓ Accepter</button><button class="btn danger" name="action" value="reject">✗ Refuser</button></div>
+  </form>`).join('');
+}
+
+function adminMembers(list) {
+  if (!list.length) return '<div class="empty">Aucun membre.</div>';
+  const statusTag = { approved: '<span class="tag green">Actif</span>', suspended: '<span class="tag red">Suspendu</span>', rejected: '<span class="tag">Refusé</span>' };
+  return list.map(u => {
+    const self = u.uid === state.me.uid;
+    return `<details class="req"><summary class="row" style="cursor:pointer">
+        <strong class="grow">${esc(u.pseudo)} ${self ? '<span class="faint small">(vous)</span>' : ''}</strong>
+        <span class="tag ${u.role === 'admin' ? 'gold' : ''}">${u.role === 'admin' ? 'Admin' : 'Formateur'}</span>${statusTag[u.status] || ''}</summary>
+      <div class="meta"><div><b>ID Discord :</b> ${esc(u.discord_id)}</div><div><b>E-mail :</b> ${esc(u.email)}</div><div><b>Âge :</b> ${esc(u.age)} ans</div>
+        <div><b>Inscrit le :</b> ${fmtDate(u.created_at)}</div><div><b>Traité par :</b> ${esc(u.reviewed_by || '—')}</div>
+        ${u.review_note ? `<div><b>Note :</b> ${esc(u.review_note)}</div>` : ''}</div>
+      ${self ? '<p class="faint small">Vous ne pouvez pas modifier votre propre accès.</p>' : `<form data-form="member" data-id="${esc(u.uid)}">
+        <label class="field"><span>Spécialités</span>${trackChecks('specialties', u.specialties || [])}</label>
+        <div class="row" style="margin-bottom:14px">
+          <label class="field grow" style="margin:0"><span>Rôle</span><select class="input" name="role">
+            <option value="formateur" ${u.role !== 'admin' ? 'selected' : ''}>Formateur</option><option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Administrateur</option></select></label>
+          <label class="field grow" style="margin:0"><span>Statut</span><select class="input" name="status">
+            ${[['approved', 'Actif'], ['suspended', 'Suspendu'], ['rejected', 'Refusé'], ['pending', 'En attente']].map(([k, n]) => `<option value="${k}" ${u.status === k ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
+        </div>
+        <div class="row"><button class="btn primary">Enregistrer</button><div class="grow"></div>
+          <button type="button" class="btn danger" data-action="delete-user" data-id="${esc(u.uid)}">Supprimer le compte</button></div>
+      </form>`}</details>`;
+  }).join('');
+}
+
+function adminQuestions() {
+  const tracks = state.config.tracks;
+  if (!tracks.some(t => t.key === state.adminTrack)) state.adminTrack = tracks[0]?.key || null;
+  const t = tracks.find(x => x.key === state.adminTrack);
+  const addTrack = `<div class="section-title">Ajouter une formation</div>
+    <form class="row" data-form="track-add"><input class="input grow" name="name" placeholder="Ex : Gestionnaire de tickets" required maxlength="40" style="min-width:200px">
+      <input class="input" type="number" name="threshold" min="0" placeholder="Seuil" required style="width:110px"><button class="btn">Créer</button></form>`;
+  if (!t) return addTrack;
+  const questions = trackQuestions(t.key);
+  return `<div class="tabs">${tracks.map(x => `<button class="tab ${x.key === t.key ? 'active' : ''}" data-action="admin-track" data-key="${esc(x.key)}">${esc(x.name)} (${x.total})</button>`).join('')}</div>
+    <form class="row" data-form="track-save" style="margin-bottom:8px">
+      <label class="field grow" style="margin:0"><span>Nom</span><input class="input" name="name" value="${esc(t.name)}" maxlength="40" required></label>
+      <label class="field" style="margin:0;width:150px"><span>Seuil (sur ${questions.length})</span><input class="input" type="number" name="threshold" min="0" value="${t.threshold}" required></label>
+      <button class="btn primary" style="align-self:flex-end">Enregistrer</button>
+      <button type="button" class="btn danger" style="align-self:flex-end" data-action="delete-track">Supprimer</button>
+    </form>
+    <p class="faint small">Les évaluations déjà archivées ne sont pas modifiées par les changements de questions.</p>
+    <div class="section-title">Questions</div>
+    ${questions.map((q, i) => `<form class="qedit" data-form="question" data-id="${esc(q.id)}">
+      <div class="qnum" style="font:800 16px var(--title);color:var(--accent)">${i + 1}</div>
+      <div><textarea class="input" name="text" required maxlength="500">${esc(q.text)}</textarea>
+        <textarea class="input" name="answer" maxlength="1000" placeholder="Réponse attendue" style="margin-top:6px">${esc(q.answer)}</textarea>
+        <div class="row" style="margin-top:8px"><button class="btn small primary">Enregistrer</button>
+          <button type="button" class="btn small" data-action="move-q" data-id="${esc(q.id)}" data-dir="-1" ${i === 0 ? 'disabled' : ''}>↑</button>
+          <button type="button" class="btn small" data-action="move-q" data-id="${esc(q.id)}" data-dir="1" ${i === questions.length - 1 ? 'disabled' : ''}>↓</button>
+          <div class="grow"></div><button type="button" class="btn small danger" data-action="delete-q" data-id="${esc(q.id)}">Supprimer</button></div></div>
+    </form>`).join('') || '<div class="empty">Aucune question.</div>'}
+    <div class="section-title">Ajouter une question</div>
+    <form data-form="question-add"><textarea class="input" name="text" required maxlength="500" placeholder="Question"></textarea>
+      <textarea class="input" name="answer" maxlength="1000" placeholder="Réponse attendue" style="margin-top:6px"></textarea>
+      <div class="space"></div><button class="btn primary">Ajouter</button></form>
+    ${addTrack}`;
+}
+
+const specialtiesOf = f => checked(f, 'specialties');
+
+Object.assign(forms, {
+  async review(f, submitter) {
+    const action = submitter?.value, d = formData(f);
+    try {
+      if (action === 'reject') {
+        if (!confirm('Refuser cette demande ?')) return;
+        await updateDoc(doc(db, 'users', f.dataset.id), { status: 'rejected', review_note: d.note.trim(), reviewed_by: state.me.pseudo, reviewed_at: now() });
+        toast('Demande refusée.');
+      } else {
+        const specialties = specialtiesOf(f);
+        if (d.role !== 'admin' && !specialties.length) fail('Attribuez au moins une spécialité.');
+        await updateDoc(doc(db, 'users', f.dataset.id), {
+          status: 'approved', role: d.role === 'admin' ? 'admin' : 'formateur', specialties,
+          review_note: d.note.trim(), reviewed_by: state.me.pseudo, reviewed_at: now(),
+        });
+        toast('Accès accordé.');
+      }
+      render();
+    } catch (e) { showError(f, errMsg(e)); }
+  },
+  async member(f) {
+    const d = formData(f);
+    try {
+      await updateDoc(doc(db, 'users', f.dataset.id), { role: d.role === 'admin' ? 'admin' : 'formateur', status: d.status, specialties: specialtiesOf(f) });
+      toast('Compte mis à jour.'); render();
+    } catch (e) { showError(f, errMsg(e)); }
+  },
+  async 'track-save'(f) {
+    const d = formData(f);
+    try {
+      const threshold = Number(d.threshold);
+      if (!Number.isInteger(threshold) || threshold < 0) fail('Seuil invalide.');
+      await updateDoc(doc(db, 'tracks', state.adminTrack), { name: str(d.name, 'Nom', 2, 40), threshold });
+      await loadPublic(); toast('Formation enregistrée.'); render();
+    } catch (e) { showError(f, errMsg(e)); }
+  },
+  async 'track-add'(f) {
+    const d = formData(f);
+    try {
+      const name = str(d.name, 'Nom de la formation', 2, 40);
+      let key = name.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'formation';
+      while (state.config.tracks.some(t => t.key === key)) key += '-2';
+      const ord = Math.max(-1, ...state.config.tracks.map(t => t.ord ?? 0)) + 1;
+      await setDoc(doc(db, 'tracks', key), { name, threshold: Math.max(0, Number(d.threshold) | 0), ord });
+      state.adminTrack = key; await loadPublic(); render();
+    } catch (e) { toast(errMsg(e), true); }
+  },
+  async question(f) {
+    const d = formData(f);
+    try { await updateDoc(doc(db, 'questions', f.dataset.id), { text: str(d.text, 'Question', 3, 500), answer: str(d.answer, 'Réponse attendue', 0, 1000) }); toast('Question enregistrée.'); }
+    catch (e) { toast(errMsg(e), true); }
+  },
+  async 'question-add'(f) {
+    const d = formData(f);
+    try {
+      const ord = Math.max(-1, ...trackQuestions(state.adminTrack).map(q => q.ord ?? 0)) + 1;
+      await addDoc(col('questions'), { track: state.adminTrack, ord, text: str(d.text, 'Question', 3, 500), answer: str(d.answer, 'Réponse attendue', 0, 1000) });
+      render();
+    } catch (e) { showError(f, errMsg(e)); }
+  },
+  async settings(f) {
+    try { await setDoc(doc(db, 'settings', 'general'), { site_name: str(formData(f).site_name, 'Nom du serveur', 1, 40) }); await loadPublic(); toast('Paramètres enregistrés.'); render(); }
+    catch (e) { showError(f, errMsg(e)); }
+  },
+});
+
+async function importData() {
+  const file = document.getElementById('import-file').files[0];
+  if (!file) return toast('Choisissez un fichier JSON.', true);
+  let data;
+  try { data = JSON.parse(await file.text()); } catch { return toast('Fichier JSON invalide.', true); }
+  if (!Array.isArray(data.tracks) || !Array.isArray(data.questions)) return toast('Ce fichier ne contient pas de formations / questions.', true);
+  if (!confirm(`Importer ${data.tracks.length} formation(s) et ${data.questions.length} question(s) ? Les formations, questions et le guide actuels seront remplacés.`)) return;
+  try {
+    const [oldTracks, oldQuestions] = await Promise.all([getDocs(col('tracks')), getDocs(col('questions'))]);
+    const ops = [];
+    oldQuestions.forEach(d => ops.push(b => b.delete(d.ref)));
+    const keep = new Set(data.tracks.map(t => t.key));
+    oldTracks.forEach(d => { if (!keep.has(d.id)) ops.push(b => b.delete(d.ref)); });
+    data.tracks.forEach((t, i) => ops.push(b => b.set(doc(db, 'tracks', t.key), { name: t.name, threshold: Number(t.threshold) || 0, ord: t.ord ?? i })));
+    data.questions.forEach(q => ops.push(b => b.set(doc(col('questions')), { track: q.track, ord: q.ord ?? 0, text: q.text, answer: q.answer || '' })));
+    Object.entries(data.guide || {}).forEach(([k, v]) => ops.push(b => b.set(doc(db, 'guide', k), v)));
+    if (data.settings?.site_name) ops.push(b => b.set(doc(db, 'settings', 'general'), { site_name: data.settings.site_name }));
+    await commitOps(ops);
+    state.guide = {};
+    await loadPublic(); await loadQuestions();
+    toast('Import terminé.'); render();
+  } catch (e) { toast(errMsg(e), true); }
+}
+
+async function exportData() {
+  try {
+    const all = async name => (await getDocs(col(name))).docs.map(d => ({ id: d.id, ...d.data() }));
+    const [tracks, questions, guide, users, evaluations] = await Promise.all(['tracks', 'questions', 'guide', 'users', 'evaluations'].map(all));
+    const out = {
+      exported_at: now(), settings: { site_name: state.config.site_name },
+      tracks: tracks.map(({ id, ...t }) => ({ key: id, ...t })),
+      questions: questions.map(({ id, ...q }) => q),
+      guide: Object.fromEntries(guide.map(({ id, ...g }) => [id, g])),
+      users, evaluations,
+    };
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' }));
+    a.download = `sauvegarde-intranet-${now().slice(0, 10)}.json`;
+    a.click(); URL.revokeObjectURL(a.href);
+  } catch (e) { toast(errMsg(e), true); }
+}
+
+// ------------------------------------------------------------ Actions (clics)
+
+const actions = {
+  async logout() { state.run = null; await signOut(auth); go('login'); },
+  async 'reset-password'() {
+    const email = document.querySelector('[data-form="login"] [name="email"]').value.trim();
+    if (!email) return toast("Entrez d'abord votre adresse e-mail dans le champ ci-dessus.", true);
+    try { await sendPasswordResetEmail(auth, email); toast('Si ce compte existe, un e-mail de réinitialisation a été envoyé.'); }
+    catch (e) { toast(errMsg(e), true); }
+  },
+  'guide-tab'(el) { state.guideTab = el.dataset.key; state.guideEdit = false; viewGuide().catch(e => toast(errMsg(e), true)); },
+  'guide-edit'() { state.guideEdit = true; viewGuide(); },
+  'guide-cancel'() { state.guideEdit = false; viewGuide(); },
+  'row-add'(el) { el.previousElementSibling.insertAdjacentHTML('beforeend', rowHtml(el.dataset.kind)); },
+  'row-del'(el) { el.closest('.rowedit').remove(); },
+  'copy-template'() { copyText(state.guide[state.guideTab]?.template || ''); },
+  mark(el) {
+    const id = el.dataset.id, v = el.dataset.v === '1';
+    state.run.marks[id] = v;
+    const card = document.getElementById('q-' + id);
+    card.className = 'q ' + (v ? 'correct' : 'wrong');
+    card.querySelectorAll('.mark').forEach(b => b.classList.toggle('on', b === el));
+    updateScore();
+  },
+  'eval-cancel'() { if (confirm('Abandonner cette évaluation ? Rien ne sera enregistré.')) { state.run = null; go('evaluation'); } },
+  async 'eval-submit'(el) {
+    const r = state.run;
+    el.disabled = true;
+    try {
+      const answers = r.questions.map(q => ({
+        question: q.text, expected: q.answer || '', correct: r.marks[q.id] === true,
+        note: document.querySelector(`[data-note="${q.id}"]`).value.trim().slice(0, 500),
+      }));
+      const score = answers.filter(a => a.correct).length;
+      const ref = await addDoc(col('evaluations'), {
+        track: r.track, track_name: r.name, ...r.recruit,
+        trainerUid: state.me.uid, trainer_name: state.me.pseudo,
+        score, total: answers.length, threshold: r.threshold, passed: score >= r.threshold,
+        answers, comment: document.getElementById('eval-comment').value.trim().slice(0, 2000), created_at: now(),
+      });
+      state.run = null; toast('Évaluation enregistrée.'); go('archives/' + ref.id);
+    } catch (e) { toast(errMsg(e), true); el.disabled = false; }
+  },
+  'open-eval'(el) { go('archives/' + el.dataset.id); },
+  'copy-discord'() { copyText(discordMessage(state.current)); },
+  async 'delete-eval'(el) {
+    if (!confirm('Supprimer définitivement cette évaluation ?')) return;
+    try { await deleteDoc(doc(db, 'evaluations', el.dataset.id)); go('archives'); } catch (e) { toast(errMsg(e), true); }
+  },
+  'admin-tab'(el) { state.adminTab = el.dataset.key; render(); },
+  'admin-settings'() { state.adminTab = 'settings'; go('admin'); },
+  'admin-track'(el) { state.adminTrack = el.dataset.key; render(); },
+  async 'delete-user'(el) {
+    if (!confirm('Supprimer ce compte ? La personne ne pourra plus se connecter. Ses évaluations restent dans les archives.')) return;
+    try { await deleteDoc(doc(db, 'users', el.dataset.id)); render(); } catch (e) { toast(errMsg(e), true); }
+  },
+  async 'move-q'(el) {
+    const list = trackQuestions(state.adminTrack);
+    const i = list.findIndex(q => q.id === el.dataset.id), j = i + Number(el.dataset.dir);
+    if (i < 0 || j < 0 || j >= list.length) return;
+    [list[i], list[j]] = [list[j], list[i]];
+    try { await commitOps(list.map((q, k) => b => b.update(doc(db, 'questions', q.id), { ord: k }))); render(); }
+    catch (e) { toast(errMsg(e), true); }
+  },
+  async 'delete-q'(el) {
+    if (!confirm('Supprimer cette question ?')) return;
+    try { await deleteDoc(doc(db, 'questions', el.dataset.id)); render(); } catch (e) { toast(errMsg(e), true); }
+  },
+  async 'delete-track'() {
+    if (!confirm('Supprimer cette formation, ses questions et son guide ? Les évaluations archivées sont conservées.')) return;
+    const key = state.adminTrack;
+    try {
+      await commitOps([
+        ...trackQuestions(key).map(q => b => b.delete(doc(db, 'questions', q.id))),
+        b => b.delete(doc(db, 'guide', key)), b => b.delete(doc(db, 'tracks', key)),
+      ]);
+      delete state.guide[key]; await loadPublic(); await loadQuestions(); render();
+    } catch (e) { toast(errMsg(e), true); }
+  },
+  import: importData,
+  export: exportData,
+};
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-action]');
+  if (el && !el.disabled && actions[el.dataset.action]) { e.preventDefault(); actions[el.dataset.action](el, e); }
+});
+document.addEventListener('submit', e => {
+  const f = e.target;
+  if (f.dataset.form && forms[f.dataset.form]) { e.preventDefault(); forms[f.dataset.form](f, e.submitter); }
+});
+document.addEventListener('input', e => {
+  const map = { 'f-q': 'q', 'f-track': 'track', 'f-result': 'result' };
+  if (map[e.target.id]) { state.archiveFilter[map[e.target.id]] = e.target.value; renderArchiveTable(); }
+});
+window.addEventListener('hashchange', render);
+
+// ------------------------------------------------------------ Démarrage
+
+// onAuthStateChanged se déclenche une fois au chargement et appelle render().
+loadPublic().catch(e => console.error(e)).finally(startAuth);
+  </script>
+</body>
+</html>
